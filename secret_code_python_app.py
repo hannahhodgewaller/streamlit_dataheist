@@ -2,34 +2,6 @@
 
 import streamlit as st
 
-# --- Theme Toggle ---
-theme = st.radio("Choose Theme:", ["Light", "Dark"], horizontal=True)
-if theme == "Dark":
-    st.markdown("""
-        <style>
-        body { background-color: #1e1e1e; color: #ffffff; }
-        input, textarea { background-color: #333333 !important; color: #ffffff !important; }
-        </style>
-    """, unsafe_allow_html=True)
-
-if theme == "Light":
-    st.markdown("""
-        <style>
-        body {background-color: #ffffff; color: #000000;}
-        input, textarea {background-color: #f0f0f0 !important; color: #000000 !important;
-        border: 1px solid #ccc !important;
-        }
-        .stButton>button {
-            background-color: #e0e0e0;
-            color: #000000;
-            border: 1px solid #999;
-        }
-        .stMarkdown {
-            color: #000000;
-        }
-        </style>
-    """, unsafe_allow_html=True)
-
 # --- Session State Setup ---
 if "attempts_left" not in st.session_state:
     st.session_state.attempts_left = 3
@@ -83,6 +55,7 @@ if st.session_state.redirect:
         <meta http-equiv="refresh" content="2;url={st.session_state.redirect}" />
         <p>Redirecting</p>
     """, unsafe_allow_html=True)
+
 
 
 
