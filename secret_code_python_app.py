@@ -2,7 +2,17 @@
 
 import streamlit as st
 
-# Initialize session state
+# --- Theme Toggle ---
+theme = st.radio("Choose Theme:", ["Light", "Dark"], horizontal=True)
+if theme == "Dark":
+    st.markdown("""
+        <style>
+        body { background-color: #1e1e1e; color: #ffffff; }
+        input, textarea { background-color: #333333 !important; color: #ffffff !important; }
+        </style>
+    """, unsafe_allow_html=True)
+
+# --- Session State Setup ---
 if "attempts_left" not in st.session_state:
     st.session_state.attempts_left = 3
 if "code_boxes" not in st.session_state:
@@ -10,12 +20,12 @@ if "code_boxes" not in st.session_state:
 if "redirect" not in st.session_state:
     st.session_state.redirect = ""
 
-# Secret code
+# --- Secret Code ---
 code = "HEISTS".lower()
 
 st.title("Enter the Secret Code")
 
-# Display input boxes
+# --- Input Boxes ---
 cols = st.columns(6)
 for i in range(6):
     st.session_state.code_boxes[i] = cols[i].text_input(
@@ -25,7 +35,7 @@ for i in range(6):
         key=f"box_{i}"
     )
 
-# Autofocus into next text box
+# --- Auto-Focus JavaScript ---
 st.markdown("""
 <script>
 const boxes = Array.from(document.querySelectorAll('input[type="text"]'));
@@ -39,36 +49,33 @@ boxes.forEach((box, i) => {
 </script>
 """, unsafe_allow_html=True)
 
-# Submit button
+# --- Submit Button ---
 if st.button("Submit Code"):
     user_input = ''.join(st.session_state.code_boxes).lower()
     score = sum(1 for a, b in zip(code, user_input) if a == b)
 
     if score == len(code):
         st.success("Success! Redirecting...")
-        st.session_state.redirect = "https://hannahhodgewaller.github.io/streamlit_dataheist/success.html"  # Replace with your success URL
+        st.session_state.redirect = "https://your-username.github.io/your-repo-name/success.html"
     else:
         st.session_state.attempts_left -= 1
         if st.session_state.attempts_left > 0:
             st.warning(f"Incorrect. You have {st.session_state.attempts_left} attempts left.")
-            st.session_state.code_boxes = [""] * 6  # Clear boxes
+            st.session_state.code_boxes = [""] * 6
         else:
             st.error("No attempts left. Redirecting...")
-            st.session_state.redirect = "https://hannahhodgewaller.github.io/streamlit_dataheist/failure.html"  # Replace with your failure URL
+            st.session_state.redirect = "https://your-username.github.io/your-repo-name/failure.html"
 
-# Redirect if needed
+# --- Redirect Logic ---
 if st.session_state.redirect:
     st.markdown(f"""
         <meta http-equiv="refresh" content="2;url={st.session_state.redirect}" />
         <p>Redirecting</p>
     """, unsafe_allow_html=True)
 
-# Reset button
+# --- Reset Button ---
 if st.button("Reset"):
     st.session_state.code_boxes = [""] * 6
     st.session_state.attempts_left = 3
     st.session_state.redirect = ""
-
     st.experimental_rerun()
-
-
