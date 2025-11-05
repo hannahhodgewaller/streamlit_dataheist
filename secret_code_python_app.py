@@ -13,7 +13,7 @@ if "redirect" not in st.session_state:
 # Secret code
 code = "HEISTS".lower()
 
-st.title("🔐 Enter the Secret Code")
+st.title("Enter the Secret Code")
 
 # Display input boxes
 cols = st.columns(6)
@@ -38,7 +38,7 @@ if st.button("Submit Code"):
         if st.session_state.attempts_left > 0:
             st.warning(f"❌ Incorrect. You have {st.session_state.attempts_left} attempts left.")
         else:
-            st.error("🚫 No attempts left. Redirecting...")
+            st.error("No attempts left. Redirecting...")
             st.session_state.redirect = "https://hannahhodgewaller.github.io/streamlit_dataheist/failure.html"  # Replace with your failure URL
 
 # Redirect if needed
@@ -55,3 +55,4 @@ if st.button("Reset"):
     st.session_state.redirect = ""
 
     st.experimental_rerun()
+
