@@ -25,6 +25,20 @@ for i in range(6):
         key=f"box_{i}"
     )
 
+# Autofocus into next text box
+st.markdown("""
+<script>
+const boxes = Array.from(document.querySelectorAll('input[type="text"]'));
+boxes.forEach((box, i) => {
+  box.addEventListener('input', () => {
+    if (box.value.length === 1 && i < boxes.length - 1) {
+      boxes[i + 1].focus();
+    }
+  });
+});
+</script>
+""", unsafe_allow_html=True)
+
 # Submit button
 if st.button("Submit Code"):
     user_input = ''.join(st.session_state.code_boxes).lower()
@@ -36,7 +50,8 @@ if st.button("Submit Code"):
     else:
         st.session_state.attempts_left -= 1
         if st.session_state.attempts_left > 0:
-            st.warning(f"❌ Incorrect. You have {st.session_state.attempts_left} attempts left.")
+            st.warning(f"Incorrect. You have {st.session_state.attempts_left} attempts left.")
+            st.session_state.code_boxes = [""] * 6  # Clear boxes
         else:
             st.error("No attempts left. Redirecting...")
             st.session_state.redirect = "https://hannahhodgewaller.github.io/streamlit_dataheist/failure.html"  # Replace with your failure URL
@@ -45,7 +60,7 @@ if st.button("Submit Code"):
 if st.session_state.redirect:
     st.markdown(f"""
         <meta http-equiv="refresh" content="2;url={st.session_state.redirect}" />
-        <p>Redirecting to <a href="{st.session_state.redirect}">{st.session_state.redirect}</a>...</p>
+        <p>Redirecting</p>
     """, unsafe_allow_html=True)
 
 # Reset button
@@ -55,4 +70,5 @@ if st.button("Reset"):
     st.session_state.redirect = ""
 
     st.experimental_rerun()
+
 
