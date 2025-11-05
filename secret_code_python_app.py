@@ -31,15 +31,15 @@ if st.button("Submit Code"):
     score = sum(1 for a, b in zip(code, user_input) if a == b)
 
     if score == len(code):
-        st.success("✅ Success! Redirecting...")
-        st.session_state.redirect = "https://example.com/success"  # Replace with your success URL
+        st.success("Success! Redirecting...")
+        st.session_state.redirect = "https://hannahhodgewaller.github.io/streamlit_dataheist/success.html"  # Replace with your success URL
     else:
         st.session_state.attempts_left -= 1
         if st.session_state.attempts_left > 0:
             st.warning(f"❌ Incorrect. You have {st.session_state.attempts_left} attempts left.")
         else:
             st.error("🚫 No attempts left. Redirecting...")
-            st.session_state.redirect = "https://example.com/failure"  # Replace with your failure URL
+            st.session_state.redirect = "https://hannahhodgewaller.github.io/streamlit_dataheist/failure.html"  # Replace with your failure URL
 
 # Redirect if needed
 if st.session_state.redirect:
@@ -53,4 +53,5 @@ if st.button("Reset"):
     st.session_state.code_boxes = [""] * 6
     st.session_state.attempts_left = 3
     st.session_state.redirect = ""
+
     st.experimental_rerun()
