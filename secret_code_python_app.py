@@ -23,7 +23,13 @@ if "redirect" not in st.session_state:
 # --- Secret Code ---
 code = "HEISTS".lower()
 
-st.title("Enter the Secret Code")
+st.markdown("""
+Enter the Secret Code:
+Use 1 letter per box
+Click or press tab to move between boxes
+The code is NOT case sensitive
+"""
+           )
 
 # --- Input Boxes ---
 cols = st.columns(6)
@@ -35,19 +41,6 @@ for i in range(6):
         key=f"box_{i}"
     )
 
-# --- Auto-Focus JavaScript ---
-st.markdown("""
-<script>
-const boxes = Array.from(document.querySelectorAll('input[type="text"]'));
-boxes.forEach((box, i) => {
-  box.addEventListener('input', () => {
-    if (box.value.length === 1 && i < boxes.length - 1) {
-      boxes[i + 1].focus();
-    }
-  });
-});
-</script>
-""", unsafe_allow_html=True)
 
 # --- Submit Button ---
 if st.button("Submit Code"):
@@ -73,9 +66,3 @@ if st.session_state.redirect:
         <p>Redirecting</p>
     """, unsafe_allow_html=True)
 
-# --- Reset Button ---
-if st.button("Reset"):
-    st.session_state.code_boxes = [""] * 6
-    st.session_state.attempts_left = 3
-    st.session_state.redirect = ""
-    st.experimental_rerun()
