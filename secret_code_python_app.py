@@ -39,7 +39,7 @@ if st.button("Submit Code"):
 
     if score == len(code):
         st.success("Success! Redirecting...")
-        st.session_state.redirect = "https://your-username.github.io/your-repo-name/success.html"
+        st.session_state.redirect = "https://hannahhodgewaller.github.io/streamlit_dataheist/success.html"
     else:
         st.session_state.attempts_left -= 1
         if st.session_state.attempts_left > 0:
@@ -47,7 +47,7 @@ if st.button("Submit Code"):
             st.session_state.code_boxes = [""] * 6
         else:
             st.error("No attempts left. Redirecting...")
-            st.session_state.redirect = "https://your-username.github.io/your-repo-name/failure.html"
+            st.session_state.redirect = "https://hannahhodgewaller.github.io/streamlit_dataheist/failure.html"
 
 # --- Redirect Logic ---
 if st.session_state.redirect:
@@ -55,6 +55,7 @@ if st.session_state.redirect:
         <meta http-equiv="refresh" content="2;url={st.session_state.redirect}" />
         <p>Redirecting</p>
     """, unsafe_allow_html=True)
+
 
 
 
