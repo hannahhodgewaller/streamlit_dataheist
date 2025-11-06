@@ -16,9 +16,9 @@ if "redirect" not in st.session_state:
 
 st.markdown("""
 ### Enter the Secret Code:  
-Use 1 letter per box  
-Click or press tab to move between boxes  
-The code is NOT case sensitive  
+* Use 1 letter or number per box  
+* Click or press tab to move between boxes  
+* The code is NOT case sensitive  
 """
            )
 
@@ -56,6 +56,7 @@ if st.session_state.redirect:
         <meta http-equiv="refresh" content="2;url={st.session_state.redirect}" />
         <p>Redirecting</p>
     """, unsafe_allow_html=True)
+
 
 
 
