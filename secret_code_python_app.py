@@ -17,6 +17,8 @@ if "code_boxes" not in st.session_state:
 if "redirect" not in st.session_state:
     st.session_state.redirect = ""
 
+
+# This is the text that appears above the code entry box. This uses "Markdown" language
 st.markdown("""
 ### Enter the Secret Code:  
 * Use 1 letter or number per box  
@@ -42,15 +44,15 @@ if st.button("Submit Code"):
     score = sum(1 for a, b in zip(code, user_input) if a == b)
 
     if score == len(code):
-        st.success("Success! Redirecting...")
-        st.session_state.redirect = "https://hannahhodgewaller.github.io/streamlit_dataheist/success.html"
+        st.success("Success! Redirecting...") # Success Text
+        st.session_state.redirect = "https://hannahhodgewaller.github.io/streamlit_dataheist/success.html"  # Success re direct link
     else:
         st.session_state.attempts_left -= 1
         if st.session_state.attempts_left > 0:
-            st.warning(f"Incorrect. You have {st.session_state.attempts_left} attempts left.")
+            st.warning(f"Incorrect. You have {st.session_state.attempts_left} attempts left.") # Initial Failure Text
             st.session_state.code_boxes = [""] * 6
         else:
-            st.error("No attempts left. Redirecting...")
+            st.error("No attempts left. Redirecting...")  # Full Failure Text
             st.session_state.redirect = "https://hannahhodgewaller.github.io/streamlit_dataheist/failure.html"
 
 # Redirect Text Logic 
@@ -59,6 +61,7 @@ if st.session_state.redirect:
         <meta http-equiv="refresh" content="2;url={st.session_state.redirect}" />
         <p>Redirecting</p>
     """, unsafe_allow_html=True)
+
 
 
 
