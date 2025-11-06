@@ -2,9 +2,12 @@
 
 import streamlit as st
 
-# Secret Code: Change only this part!
+# Secret Code: Change only the word in quotation marks!
+# Ensure the word is in quotation marks
+# Ensure the text .lower appears after the quotation marks.
+# Example code - code = "HEIST9".lower()
 
-code = "HEIST9".lower()
+code = "HEIST9".lower() 
 
 # --- Session State Setup ---
 if "attempts_left" not in st.session_state:
@@ -56,6 +59,7 @@ if st.session_state.redirect:
         <meta http-equiv="refresh" content="2;url={st.session_state.redirect}" />
         <p>Redirecting</p>
     """, unsafe_allow_html=True)
+
 
 
 
