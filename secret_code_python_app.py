@@ -2,6 +2,10 @@
 
 import streamlit as st
 
+# Secret Code: Change only this part!
+
+code = "HEIST9".lower()
+
 # --- Session State Setup ---
 if "attempts_left" not in st.session_state:
     st.session_state.attempts_left = 3
@@ -9,9 +13,6 @@ if "code_boxes" not in st.session_state:
     st.session_state.code_boxes = [""] * 6
 if "redirect" not in st.session_state:
     st.session_state.redirect = ""
-
-# --- Secret Code ---
-code = "HEISTS".lower()
 
 st.markdown("""
 ### Enter the Secret Code:  
@@ -21,9 +22,9 @@ The code is NOT case sensitive
 """
            )
 
-# --- Input Boxes ---
-cols = st.columns(6)
-for i in range(6):
+# Input Boxes
+cols = st.columns(len(code))
+for i in range(len(code)):
     st.session_state.code_boxes[i] = cols[i].text_input(
         label="",
         value=st.session_state.code_boxes[i],
@@ -32,7 +33,7 @@ for i in range(6):
     )
 
 
-# --- Submit Button ---
+# Submit Button
 if st.button("Submit Code"):
     user_input = ''.join(st.session_state.code_boxes).lower()
     score = sum(1 for a, b in zip(code, user_input) if a == b)
@@ -49,12 +50,13 @@ if st.button("Submit Code"):
             st.error("No attempts left. Redirecting...")
             st.session_state.redirect = "https://hannahhodgewaller.github.io/streamlit_dataheist/failure.html"
 
-# --- Redirect Logic ---
+# Redirect Text Logic 
 if st.session_state.redirect:
     st.markdown(f"""
         <meta http-equiv="refresh" content="2;url={st.session_state.redirect}" />
         <p>Redirecting</p>
     """, unsafe_allow_html=True)
+
 
 
 
