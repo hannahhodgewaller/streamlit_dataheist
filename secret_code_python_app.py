@@ -28,6 +28,14 @@ st.markdown("""
            )
 
 # Input Boxes
+st.session_state.code_boxes[0] = cols[0].text_input(
+    label="1. Data Quality",
+    value=st.session_state.code_boxes[0],
+    max_chars=1,
+    key="box_0"
+
+"""
+# Input Boxes
 cols = st.columns(len(code))
 for i in range(len(code)):
     st.session_state.code_boxes[i] = cols[i].text_input(
@@ -36,7 +44,7 @@ for i in range(len(code)):
         max_chars=1,
         key=f"box_{i}"
     )
-
+"""
 
 # Submit Button
 if st.button("Submit Code"):
@@ -61,6 +69,7 @@ if st.session_state.redirect:
         <meta http-equiv="refresh" content="2;url={st.session_state.redirect}" />
         <p>Redirecting</p>
     """, unsafe_allow_html=True)
+
 
 
 
