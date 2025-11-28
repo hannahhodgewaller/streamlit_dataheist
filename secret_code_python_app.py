@@ -32,7 +32,7 @@ st.session_state.code_boxes[0] = cols[0].text_input(
     label="1. Data Quality",
     value=st.session_state.code_boxes[0],
     max_chars=1,
-    key="box_0"
+    key="box_0" )
 
 """
 # Input Boxes
@@ -69,6 +69,7 @@ if st.session_state.redirect:
         <meta http-equiv="refresh" content="2;url={st.session_state.redirect}" />
         <p>Redirecting</p>
     """, unsafe_allow_html=True)
+
 
 
 
